@@ -1,52 +1,51 @@
-
-
-
-
 $(document).ready(function () {
     const $timeBlock = $('.time-block');
 
     const $container = $('#container');
 
+    const dayTime = ['10AM', '11AM', '12AM', '1PM', '2PM', ' 3PM']
 
-    // const $dayTime = $("").addClass(bg-success);
     let $currentDay = $('#currentDay');
     let todayDate = moment();
+    // creating data from moment.js
     $currentDay.text(todayDate.format('MMMM Do YYYY, h:mm:ss a'));
-    // make HTML elements
-    const dayTime = ['10AM', '11AM', '12AM', '1PM', '2PM', ' 3PM']
-    $.each(dayTime, function (key, value) {
 
+
+    $.each(dayTime, function (key, value) {
+        // make HTML elements
         const $rowDiv = $('<div>').addClass('row');
         const $hourDiv = $('<div>').text(value).addClass('hour');
-        const $textInfo = $('<textarea>').addClass('.textarea col-8 bg-warning').attr('value', value);
+        const $textInfo = $('<textarea>').addClass('.textarea .empty col-8 bg-warning').attr('value', value);
 
         const $button = $('<button>').addClass('saveBtn col-2');
 
         const $btnIcon = $('<i>').addClass('fas fa-calendar-check ');
 
+        // const $clearBtn = $('<button>').text('clear').addClass('empty');
+        
+        // appending elements to parents
         $button.append($btnIcon);
         $timeBlock.append($rowDiv);
         $rowDiv.append($hourDiv, $textInfo, $button);
 
 
-
-
-
-
-
         function storeTodo() {
             localStorage.setItem(value, $textInfo.val());
         }
-        //running the function when the save button is clicked
+
         $button.on('click', function () {
             storeTodo()
         })
-        // retreiving to-do items from local storage and rendering them to their correct time-blocks
-        function getTodoText() {
+
+        function getTodo() {
             const item = localStorage.getItem(value)
             $textInfo.text(item)
         }
-        getTodoText()
+        getTodo()
+
+        // $clearBtn.on('click', function () {
+        //     $clearBtn.empty();
+        // })
 
     })
 
